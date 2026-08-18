@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "liquidtheme",
+  "version": "${version}",
+  "name": "LiquidBounce Theme",
+  "description": "还原水影LiquidBounce标题界面和背景主题包 - 原生OpenGL渲染",
+  "authors": ["ThemeModder"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/liquidtheme/textures/gui/logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.liquidbounce.theme.LiquidThemeMod"
+    ]
+  },
+  "mixins": [
+    "liquidtheme.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
