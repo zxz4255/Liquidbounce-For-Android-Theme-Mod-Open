@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "customtitle",
+  "version": "${version}",
+  "name": "Custom Title Screen",
+  "description": "Native-rendered main menu inspired by LiquidBounce's Title.svelte layout - no browser/CEF.",
+  "authors": ["you"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      {
+        "adapter": "kotlin",
+        "value": "com.example.customtitle.CustomTitleModInitializer"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "26.2",
+    "fabric-api": "*",
+    "fabric-language-kotlin": ">=1.13.12"
+  }
+}

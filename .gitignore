@@ -1,0 +1,19 @@
+# gradle
+.gradle/
+build/
+out/
+
+# fabric loom run directory (game files, saves, logs when testing locally)
+run/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
