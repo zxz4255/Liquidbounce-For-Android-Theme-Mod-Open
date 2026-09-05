@@ -24,7 +24,7 @@ jobs:
 
       - run: chmod +x gradlew
       - uses: gradle/actions/setup-gradle@v4
-      - run: ./gradlew build -x test -x detekt --no-daemon
+      - run: ./gradlew build --no-daemon
 
       - name: 提取主 JAR（排除 sources）
         run: |
