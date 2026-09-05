@@ -28,23 +28,22 @@ jobs:
 
       - name: 提取主 JAR（排除 sources）
         run: |
-          JAR=$(ls build/libs/liquidbounce-*.jar | grep -v sources | head -n 1)
+          JAR=$(ls build/libs/customtitle-*.jar | grep -v sources | head -n 1)
           if [ -z "$JAR" ]; then echo "❌ 未找到主 JAR"; exit 1; fi
           echo "✅ 使用 JAR: $JAR"
-          cp "$JAR" ./liquidbounce.jar
-
+          cp "$JAR" ./customtitle.jar
       - name: 上传 JAR 作为 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: liquidbounce
-          path: liquidbounce.jar
+          name: liquidbounce title mod
+          path: liquidbounce title mod .jar
           retention-days: 90
 
       - name: 创建 Release 并上传 JAR
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: liquidbounce.jar
+          files: liquidbounce title mod.jar
           draft: false
           prerelease: false
           generate_release_notes: true
