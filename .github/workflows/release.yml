@@ -35,8 +35,8 @@ jobs:
       - name: 上传 JAR 作为 Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: liquidbounce title mod
-          path: liquidbounce title mod .jar
+          name: customtitle
+          path: customtitle.jar
           retention-days: 90
 
       - name: 创建 Release 并上传 JAR
