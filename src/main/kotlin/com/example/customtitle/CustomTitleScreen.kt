@@ -321,7 +321,8 @@ class CustomTitleScreen : Screen(Component.literal(BrandConfig.CLIENT_NAME)) {
      */
     // ---- Smooth aurora: seamless tileable noise bake + continuous scroll ----
     // Same band palette/intensity as the GLSL port, but the field flows every frame.
-    private val auroraSpeed = doubleArrayOf(0.05, 0.10, 0.15)
+    // 层漂移速度（相对原值约 2.5 倍，整体更有流动感）
+    private val auroraSpeed = doubleArrayOf(0.125, 0.25, 0.375)
     private val auroraIntensity = doubleArrayOf(0.35, 0.40, 0.30)
     private val auroraLayerCol = doubleArrayOf(
         0.0, 1.0, 0.3, // band 1 (r, g, b)
@@ -368,8 +369,8 @@ class CustomTitleScreen : Screen(Component.literal(BrandConfig.CLIENT_NAME)) {
         val col = auroraLayerCol
         val inten = auroraIntensity
 
-        // Continuous time in GLSL units — same drift pace as the old 4 s / 10-unit loop
-        val t = System.currentTimeMillis() * 0.0025
+        // Continuous time — 时间系数加大，极光整体流动更快（约 2.5x）
+        val t = System.currentTimeMillis() * 0.00625
         for (k in 0 until 3) {
             val o = (t * auroraSpeed[k] * 2.0) % auroraTileP
             auroraOffX[k] = o
