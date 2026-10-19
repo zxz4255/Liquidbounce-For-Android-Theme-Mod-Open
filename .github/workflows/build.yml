@@ -1,0 +1,61 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  pull_request:
+    branches: [ "main", "master" ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.gitignore'
+      - 'LICENSE'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: ${{ github.ref != 'refs/heads/main' && github.ref != 'refs/heads/master' }}
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      # 新增：提取主 JAR（排除 sources 等）
+      - name: Extract main JAR
+        run: |
+          # 查找所有 JAR，排除包含 -sources、-javadoc 的
+          MAIN_JAR=$(ls build/libs/*.jar | grep -v -E '(-sources|-javadoc)' | head -n 1)
+          if [ -z "$MAIN_JAR" ]; then
+            echo "❌ 未找到主 JAR 文件"
+            exit 1
+          fi
+          echo "✅ 主 JAR: $MAIN_JAR"
+          cp "$MAIN_JAR" ./customtitle.jar   # 重命名为固定名称，方便上传
+
+      - name: Upload built jar
+        uses: actions/upload-artifact@v4
+        with:
+          name: customtitle-${{ github.sha }}
+          path: customtitle.jar   # 只上传这个单一文件
